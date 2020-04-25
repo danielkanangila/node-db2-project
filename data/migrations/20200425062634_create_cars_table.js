@@ -5,6 +5,11 @@ exports.up = function (knex) {
     table.string("make").notNullable();
     table.string("model").notNullable();
     table.integer("mileage").notNullable();
+    table.string("year").nullable();
+    table.string("transmission").nullable();
+    table.string("title_status").nullable();
+    table.text("fuel").nullable();
+    table.text("comment").nullable();
     table.timestamps(true, true);
   });
 };

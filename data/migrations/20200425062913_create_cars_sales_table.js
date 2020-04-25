@@ -1,11 +1,9 @@
 exports.up = function (knex) {
-  return knex.schema.createTable("cars_info", (table) => {
+  return knex.schema.createTable("cars_sales", (table) => {
     table.increments();
     table.integer("car_id").unsigned().notNullable();
-    table.string("transmission").nullable();
-    table.string("title_status").nullable();
-    table.text("fuel").nullable();
-    table.text("others").nullable();
+    table.string("customer_name").notNullable();
+    table.float("price").notNullable();
     table.timestamps(true, true);
 
     table
@@ -18,5 +16,5 @@ exports.up = function (knex) {
 };
 
 exports.down = function (knex) {
-  return knex.string.dropTableIfExists("cars_info");
+  return knex.schema.dropTableIfExists("cars_sales");
 };
