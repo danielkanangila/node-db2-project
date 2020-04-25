@@ -8,15 +8,18 @@ class Model {
   constructor() {
     this.tableName = "";
     this.jsonSchema = "";
-    this.query = db;
+  }
+
+  query() {
+    return db(this.tableName);
   }
 
   find() {
-    return this.query(this.tableName);
+    return this.query();
   }
 
   findById(id) {
-    return this.query(this.tableName).where({ id }).first();
+    return this.query().where({ id }).first();
   }
 
   create(payload) {
@@ -24,7 +27,7 @@ class Model {
     if (v.errors.length) {
       throw new ValidationError(v.errors);
     }
-    return this.query(this.tableName).insert(payload).returning("*");
+    return this.query().insert(payload).returning("*");
   }
 
   update(id, payload) {
@@ -32,14 +35,11 @@ class Model {
     if (v.errors.length) {
       throw new ValidationError(v.errors);
     }
-    return this.query(this.tableName)
-      .where({ id })
-      .update(payload)
-      .returning("*");
+    return this.query().where({ id }).update(payload).returning("*");
   }
 
   remove(id) {
-    return this.query(this.tableName).where("id", id).del();
+    return this.query().where("id", id).del();
   }
 }
 
