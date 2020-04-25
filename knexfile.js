@@ -2,12 +2,15 @@
 
 module.exports = {
   development: {
-    client: "pg",
+    client: "sqlite3",
+    useNullAsDefault: true,
     connection: {
-      database: process.env.DB_NAME,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      host: process.env.DB_HOST,
+      filename: "./data/car-dealer.db3",
+    },
+    pool: {
+      afterCreate: (conn, done) => {
+        conn.run("PRAGMA foreign_keys = ON", done);
+      },
     },
     migrations: {
       directory: "./data/migrations",
